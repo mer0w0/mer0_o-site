@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Magurockサイト配布</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background: #f6f6f6;
+    }
+    select, button {
+      font-size: 1rem;
+      padding: 0.5rem;
+      margin-top: 1rem;
+    }
+    button {
+      min-width: 100px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h2>Magurockサイト配布</h2>
+  <p>ポップアップとリダイレクトを許可する設定が必要な場合があります</p>
+  <p>端末によってはサイトを開くことに時間がかかる場合があります</p>
+  <h3>注意:体験版です。</h3>
+  <h4>最新版は作者のページにあります 下から開いてください(受付必要)</h4>
+  <label for="SiteGroup">開くサイトを選択</label><br>
+  <select id="SiteGroup">
+    <option value="Sakusya">作者のページ</option>
+    <option value="Shadow1">Shadow 1-40</option>
+    <option value="Shadow2">Shadow 41-63</option>
+    <option value="Utopia1">Utopia 1-40</option>
+    <option value="Utopia2">Utopia 41-80</option>
+    <option value="Utopia3">Utopia 80-111</option>
+  </select>
+  <br>
+  <button onclick="openSelectedSites()">開く</button>
+  <script>
+    // URLリストの部分
+    const siteGroups = {
+      Sakusya: [
+        "https://padlet.com/Magurock/e9n4zhdx6ucfbaa4",
+        "https://magurock.github.io/"
+      ],
+      Shadow1: [
+        "https://aaaaaaa.tikusttm.ipv64.net/",
+        "https://api.loilonoteapp.ipv64.de/",
+        "https://asdfjkl.signtiku.home64.de/",
+        "https://by-scrsa.abl.cl/",
+        "https://can-do-by-scrsa.30x.ru/",
+        "https://chaotic-guest-bestie.glacialpower.com/",
+        "https://classroom.google.lang.hm/",
+        "https://crimson.api64.de/",
+        "https://english-jp.easterndns.com/",
+        "https://f5b2mjrkm3f8.easterndns.com/",
+        "https://farmhouse.mills-family.us/",
+        "https://fxgjvddu.nas64.de/",
+        "https://gooogle-custom.laviewddns.com/",
+        "https://gooogle-reserved.laviewddns.com/",
+        "https://gooogle-setmodel.laviewddns.com/",
+        "https://gooogle-yahoo.laviewddns.com/",
+        "https://hainuyoushadow2.laviewddns.com/",
+        "https://harupika2.laviewddns.com/",
+        "https://hehege.vpn64.de/",
+        "https://jp.loilonoteapp.ipv64.de/",
+        "https://karaseee.f5.si/",
+        "https://karin.nas64.de/",
+        "https://keepchatactive.faizinternational.com.np/",
+        "https://kengi.abl.cl/",
+        "https://login.loilonoteapp.ipv64.de/",
+        "https://loilo.f5.si/",
+        "https://loilonote.crabdance.com/",
+        "https://loilonoteapp1.strangled.net/",
+        "https://matcha-a1.any64.de/",
+        "https://math.startechcomputacion.com/",
+        "https://matheducaton.duia.us/",
+        "https://mercury.any64.de/",
+        "https://mof-policy.cbu.net/",
+        "https://n.loilonoteapp.ipv64.de/",
+        "https://nanonano.opsto.ipv64.de/",
+        "https://neptune-z2.eth64.de/",
+        "https://neptune-z3.home64.de/",
+        "https://neptune-z4.ipv64.de/",
+        "https://neptune-z5.ipv64.net/",
+        "https://neptune-z7.ipv64.net/"
+      ],
+      Shadow2: [
+        "https://neptune.dns64.de/",
+        "https://phantom.lol/",
+        "https://school.loilonoteapp.ipv64.de/",
+        "https://shadow-1.myclarevision.com/",
+        "https://shadow-byyuzu.myclarevision.com/",
+        "https://shadow-haihu-bynyanko.easterndns.com/",
+        "https://shadow1.www.myclarevision.com/",
+        "https://shadow3.www.myclarevision.com/",
+        "https://shadowdayo.ipv64.net/",
+        "https://shadowshadowshadowshadowshadow.easterndns.com/",
+        "https://shadowshark.ipv64.net/",
+        "https://shadowwwwwww.home64.de/",
+        "https://shafow.wan64.de/",
+        "https://sharethisshadow.easterndns.com/",
+        "https://shawa.f5.si/",
+        "https://silly.lindhesidan.se/",
+        "https://study.loilonoteapp.ipv64.de/",
+        "https://topdown.robtop.xyz/",
+        "https://topyea.robtop.xyz/",
+        "https://uiano.ydns.eu/",
+        "https://www.f.cbu.net/",
+        "https://www.mlit.go.jp.alyaf.com/",
+        "https://yuzutyan-2.ipv64.net/"
+      ],
+      Utopia1: [
+        "https://abcya.jumpingcrab.com/",
+        "https://aleks.readtheory.com.mooo.com/",
+        "https://alumn.history.ldop.com/",
+        "https://area.level.southtrestle.com/",
+        "https://arevmadethis.120v.ac/",
+        "https://atom.area.freemath.ch/",
+        "https://basic.login.pimentas.org/",
+        "https://basic.rules.ayotu.com/",
+        "https://bio.goal.trans.am/",
+        "https://blacknig-ger.69.mu/",
+        "https://cells.school.jaaax.com/",
+        "https://chart.books.fivepals.com/",
+        "https://chickenzestyhawktuahbigblacknigfattass.69.mu/",
+        "https://church.books.fieldofstudy.com/",
+        "https://church.paper.singasoft.com/",
+        "https://class.bio.prettybirdserver.com/",
+        "https://cluzeha.neikos.com.mx/",
+        "https://core.goal.challengepursuit.com/",
+        "https://core.mind.corega.ro/",
+        "https://course.quiz.makovecz.com/",
+        "https://data.solve.prxch.com/",
+        "https://debate.graph.solaris-station.org/",
+        "https://dogenirbytes.baselinux.net/",
+        "https://ebooks-edu.agmlabs.com/",
+        "https://edu.area.escfks.com/",
+        "https://edu.focus.decharacter.com/",
+        "https://essay.lab.chroniclesoftimes.com/",
+        "https://essay.tasks.vege-placenta.com/",
+        "https://everyonewantstocrackshawnp.jumpingcrab.com/",
+        "https://examccctestedd.privatedns.org/",
+        "https://facts.teach.sdm-tv.com/",
+        "https://focus.quiz.level10.org/",
+        "https://freednsafraidorg.mooo.com/",
+        "https://goal.music.1337.cx/",
+        "https://gooberman123.com.chickenkiller.com/",
+        "https://gov.goal.agilewhitecloud.com/",
+        "https://grade.media.3735943886.com/",
+        "https://graph.howto.wafflez.net/",
+        "https://grid.brain.marcenes.com.br/",
+        "https://grid.media.miracol.com/"
+      ],
+      Utopia2: [
+        "https://gyat.grid.volkswagenrescue.com/",
+        "https://heb1.ignorelist.com/",
+        "https://history-of-the-king-of-pop.moldeo.org/",
+        "https://how.learn.harimurti.web.id/",
+        "https://i-hate-link-leakers-cyptopia-made-this.adaptor.cl/",
+        "https://idea.lab.fabriquilla25.com/",
+        "https://idea.read.capella-technologies.com/",
+        "https://jordanmadethis.chickenkiller.com/",
+        "https://k5math.record-point.com.au/",
+        "https://know.core.antidemon.com/",
+        "https://know.orbit.frawst.com/",
+        "https://know.read.randydorian.com/",
+        "https://lab.graph.central64.com/",
+        "https://level.login.lokaloi.com/",
+        "https://logic.terms.cgland.net/",
+        "https://login.howto.notredamearena.com/",
+        "https://major.know.unielectronics.ca/",
+        "https://mass.church.baselinux.net/",
+        "https://mass.prep.tanenbaumchat.org/",
+        "https://math.tests.comprotusjuguetes.com/",
+        "https://math.tests.szk-obihiro.com/",
+        "https://mathhomeworkplus.chickenkiller.com/",
+        "https://moremathat.conexioncircular.cl/",
+        "https://music.minds.alletrades.com/",
+        "https://music.recap.markisfullofshit.com/",
+        "https://mybad.soon.it/",
+        "https://notes.sci.kkleung.net/",
+        "https://notes.tech.aotectrl.com/",
+        "https://notgames.justlearning.net/",
+        "https://oluka.chickenkiller.com/",
+        "https://orbit.craft.itsadoteatdotworld.com/",
+        "https://orbit.debate.invest.io/",
+        "https://orbit.plant.donnaspa.net/",
+        "https://paper.field.cloudaaron.net/",
+        "https://plant.smart.energysemi.com/",
+        "https://poiuytrewq.novipro.ca/",
+        "https://prep.sage.accesoriosmichelle.com/",
+        "https://prep.utopia.joywang.com/",
+        "https://proof.major.archanet.org/",
+        "https://pupil.learn.stevedewald.com/"
+      ],
+      Utopia3: [
+        "https://quiz.teach.xrtc.com/",
+        "https://real.books.bahcekoysutyumurta.com/",
+        "https://real.facts.ipachuca.com/",
+        "https://real.lab.s4r4.com/",
+        "https://recap.grade.kredytlinia.pl/",
+        "https://recap.utopia.menorahscrazyblog.com/",
+        "https://school.area.sembiring.com/",
+        "https://schoology2.twilightparadox.com/",
+        "https://skills.field.cftc-devoteam.one.pl/",
+        "https://skills.notes.pakla.pl/",
+        "https://smart.quiz.nelsonshack.com/",
+        "https://solve.write.pacificbellinternational.com/",
+        "https://study.sci.nabim.com/",
+        "https://task.edu.hueteinterpreting.com/",
+        "https://task.major.assholetenants.com/",
+        "https://teach.vocab.anshumgupta.net/",
+        "https://tech.vocab.nucktech.com/",
+        "https://tests.debate.homebrewology.org/",
+        "https://tests.excel.wild1.net/",
+        "https://think.sage.infovizija.com/",
+        "https://topic.base.nonsingular.com/",
+        "https://topic.know.ticpu.net/",
+        "https://topic.teach.pacbell.hk/",
+        "https://tutor.words.xzolx.org/",
+        "https://vocab.real.anynall.com/",
+        "https://vyujcfwinj.thetrist.com/",
+        "https://work.how.gutierrezdequevedo.com/",
+        "https://work.quiz.gamersuk.org/",
+        "https://world.guide.ticinostudio.com/",
+        "https://write.arts.leadseminars.com/",
+        "https://write.learn.aeroantenna.com/"
+      ]
+    };
+
+    function openSelectedSites() {
+      const selectedGroup = document.getElementById("SiteGroup").value;
+      const urls = siteGroups[selectedGroup];
+
+      if (!urls || urls.length === 0) {
+        alert("選択したグループにURLが登録されていません");
+        return;
+      }
+
+      urls.forEach(url => {
+        window.open(url, "_blank");
+      });
+    }
+  </script>
+
+</body>
+</html>
