@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube - mer0_o site</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🎀 YouTube 🎀</h1>
+    <nav>
+      <a href="index.html">トップ</a>
+      <a href="youtube.html">YouTube</a>
+      <a href="tools.html">ツール配布</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>好きなYouTube動画をnocookieで見る</h2>
+      <div class="input-area">
+        <input type="text" id="youtube-url" placeholder="YouTube動画のURLを貼ってください">
+        <button onclick="loadVideo()">表示</button>
+      </div>
+      <div class="video-container" id="video-container">
+        <!-- 動画がここに表示されます -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 めろ</p>
+  </footer>
+
+  <script>
+    function loadVideo() {
+      const url = document.getElementById('youtube-url').value.trim();
+      const videoId = extractVideoId(url);
+      if (videoId) {
+        const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
+        document.getElementById('video-container').innerHTML = `
+          <iframe width="560" height="315"
+            src="${embedUrl}"
+            frameborder="0"
+            allowfullscreen>
+          </iframe>
+        `;
+      } else {
+        alert("有効なYouTube URLを入力してください");
+      }
+    }
+
+    function extractVideoId(url) {
+      try {
+        const parsedUrl = new URL(url);
+        if (parsedUrl.hostname.includes('youtu.be')) {
+          return parsedUrl.pathname.substring(1);
+        }
+        if (parsedUrl.hostname.includes('youtube.com')) {
+          return parsedUrl.searchParams.get('v');
+        }
+      } catch (e) {
+        return null;
+      }
+      return null;
+    }
+  </script>
+</body>
+</html>
